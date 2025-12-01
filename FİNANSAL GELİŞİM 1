@@ -1,0 +1,41 @@
+package com.hasan.finplantr
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Gelir-Gider Hesaplama
+        val gelirInput = findViewById<EditText>(R.id.gelirInput)
+        val giderInput = findViewById<EditText>(R.id.giderInput)
+        val hesaplaBtn = findViewById<Button>(R.id.hesaplaBtn)
+        val sonucText = findViewById<TextView>(R.id.sonucText)
+
+        hesaplaBtn.setOnClickListener {
+            val gelir = gelirInput.text.toString().toDoubleOrNull() ?: 0.0
+            val gider = giderInput.text.toString().toDoubleOrNull() ?: 0.0
+            val net = gelir - gider
+            sonucText.text = "Net Nakit Akışı: $net TL"
+        }
+
+        // Kıdem Tazminatı Hesaplama
+        val maasInput = findViewById<EditText>(R.id.maasInput)
+        val yilInput = findViewById<EditText>(R.id.yilInput)
+        val tazminatBtn = findViewById<Button>(R.id.tazminatBtn)
+        val tazminatText = findViewById<TextView>(R.id.tazminatText)
+
+        tazminatBtn.setOnClickListener {
+            val maas = maasInput.text.toString().toDoubleOrNull() ?: 0.0
+            val yil = yilInput.text.toString().toIntOrNull() ?: 0
+            val tazminat = maas * yil
+            tazminatText.text = "Kıdem Tazminatı: $tazminat TL"
+        }
+    }
+}
