@@ -1,0 +1,27 @@
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import android.graphics.Color
+
+// ... MainActivity içinde
+val pieChart = findViewById<PieChart>(R.id.pieChart)
+
+hesaplaBtn.setOnClickListener {
+    val gelir = gelirInput.text.toString().toDoubleOrNull() ?: 0.0
+    val gider = giderInput.text.toString().toDoubleOrNull() ?: 0.0
+    val net = gelir - gider
+    sonucText.text = "Net Nakit Akışı: $net TL"
+
+    // Grafik için veri
+    val entries = ArrayList<PieEntry>()
+    entries.add(PieEntry(gelir.toFloat(), "Gelir"))
+    entries.add(PieEntry(gider.toFloat(), "Gider"))
+
+    val dataSet = PieDataSet(entries, "Finansal Durum")
+    dataSet.colors = listOf(Color.GREEN, Color.RED)
+
+    val data = PieData(dataSet)
+    pieChart.data = data
+    pieChart.invalidate() // grafiği yenile
+}
